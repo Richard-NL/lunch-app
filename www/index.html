@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+
+        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+        <script src="lib/ionic/js/angular/angular.min.js"></script>
+        <script src="lib/ionic/js/angular/angular-resource.min.js"></script>
+
+        <script src="js/index.js"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Turf je lunch</title>
+    </head>
+    <body ng-app="turfApp" class="ionic-body">
+        <div>
+            <div class="content" ng-controller="MyController">
+
+                <div>
+                    {{myForm.name}}
+                </div>
+                <div>
+                    {{myForm.car}}
+                </div>
+
+                <form>
+                    <ul class="list">
+
+                        <li class="item item-input item-select">
+                            <div class="input-label">
+                                Registreren als:
+                            </div>
+
+                            <select ng-controller="listOfEmployees" ng-model="myForm.currentEmployee" ng-change="listOfEmployees.saveCurrentEmployee(myForm.currentEmployee, this)">
+                                <option>Selecteer</option>
+                                <option ng-repeat="(key, val) in listOfEmployeesData" value="{{val.name}}" ng-selected="val.isCurrentUser">
+                                    {{val.name}}
+                                </option>
+                            </select>
+                        </li>
+
+                        </li>
+                    </ul>
+                    <div class="row">
+                        <div class="col">
+
+                            <h4>Vandaag gelunched?</h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <button class="button button-block button-balanced" ng-click="myForm.submitTheForm()">
+                                Nomnomnom
+                                &nbsp;
+                                <i class="icon ion-fork"></i>
+                                <i class="icon ion-knife"></i>
+                            </button>
+                        </div>
+                        <!--<div class="col">
+                            <button class="button button-block " disabled>
+                                Nope
+                            </button>
+                        </div>-->
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+
+                            <h4>Overzicht van vandaag</h4>
+                        </div>
+                    </div>
+
+                </form>
+
+
+
+                <ul class="list" ng-controller="employeesToday">
+                    <li class="item" ng-repeat="(key, val) in employeesTodayData">
+                        {{val.employee_name}}
+                        <label class="toggle">
+                            <input ng-checked="val.has_lunched" type="checkbox" checked ng-model="val.has_lunched" ng-change="updateEmployee.submitTheForm(val, this)">
+                            <div class="track">
+                                <div class="handle"></div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
